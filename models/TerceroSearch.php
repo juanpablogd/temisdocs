@@ -18,8 +18,7 @@ class TerceroSearch extends Tercero
     public function rules()
     {
         return [
-            [['idtercero'], 'integer'],
-            [['nombre', 'apellido', 'telefono', 'direccion', 'idciudad'], 'safe'],
+            [['idtercero', 'nombre', 'apellido', 'telefono', 'direccion', 'idciudad'], 'safe'],
         ];
     }
 
@@ -60,11 +59,8 @@ class TerceroSearch extends Tercero
         $query->joinWith('idciudad0');
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'idtercero' => $this->idtercero,
-        ]);
-
-        $query->andFilterWhere(['like', 'nombre', $this->nombre])
+        $query->andFilterWhere(['like', 'idtercero', $this->idtercero])
+            ->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'apellido', $this->apellido])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
             ->andFilterWhere(['like', 'direccion', $this->direccion])

@@ -33,11 +33,13 @@ class Tercero extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'apellido', 'idciudad'], 'required'],
+            [['idtercero', 'nombre', 'apellido', 'idciudad'], 'required'],
+            [['idtercero'], 'string', 'max' => 12],
             [['nombre', 'apellido'], 'string', 'max' => 50],
             [['telefono'], 'string', 'max' => 60],
             [['direccion'], 'string', 'max' => 100],
             [['idciudad'], 'string', 'max' => 5],
+            [['idtercero'], 'unique'],
             [['idciudad'], 'exist', 'skipOnError' => true, 'targetClass' => Ciudad::className(), 'targetAttribute' => ['idciudad' => 'idciudad']],
         ];
     }
@@ -48,7 +50,7 @@ class Tercero extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idtercero' => 'Idtercero',
+            'idtercero' => 'CC / TI / NIT',
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
             'telefono' => 'Telefono',
