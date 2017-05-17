@@ -16,20 +16,39 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Documento', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Documento', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            //'iddocumento',
-            ['attribute' => 'Tercero','value' => 'terceroIdtercero.nombre'],
-            ['attribute' => 'Documento','value' => 'tipodocIdtipodoc.nombre'],
             'ruta',
             'fechasis',
-            // 'usuario_idusuario',
+            [
+                'label' => 'CC / NIT',
+                'attribute'=>'tercero_idtercero',
+            ],
+            [
+                'label' => 'Nombres',
+                'format' => 'ntext',
+                'attribute'=>'nombres',
+                'value' => function($model) {
+                    return $model->terceroIdtercero['nombres'];
+                },
+            ],
+            [
+                'label' => 'Apellidos',
+                'format' => 'ntext',
+                'attribute'=>'apellido',
+                'value' => function($model) {
+                    return $model->terceroIdtercero['apellido'];
+                },
+            ],
+            [
+             'attribute' => 'tipodoc_idtipodoc',
+             'value' => 'tipodocIdtipodoc.nombre'
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

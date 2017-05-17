@@ -35,9 +35,10 @@ class Documento extends \yii\db\ActiveRecord
     {
         return [
             [['ruta', 'fechasis', 'tercero_idtercero', 'tipodoc_idtipodoc', 'usuario_idusuario'], 'required'],
-            [['tercero_idtercero', 'tipodoc_idtipodoc', 'usuario_idusuario'], 'integer'],
+            [['tipodoc_idtipodoc', 'usuario_idusuario'], 'integer'],
             [['ruta'], 'string', 'max' => 255],
             [['fechasis'], 'string', 'max' => 45],
+            [['tercero_idtercero'], 'string', 'max' => 12],
             [['tercero_idtercero'], 'exist', 'skipOnError' => true, 'targetClass' => Tercero::className(), 'targetAttribute' => ['tercero_idtercero' => 'idtercero']],
             [['tipodoc_idtipodoc'], 'exist', 'skipOnError' => true, 'targetClass' => Tipodoc::className(), 'targetAttribute' => ['tipodoc_idtipodoc' => 'idtipodoc']],
             [['usuario_idusuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['usuario_idusuario' => 'idusuario']],
@@ -51,11 +52,11 @@ class Documento extends \yii\db\ActiveRecord
     {
         return [
             'iddocumento' => 'Iddocumento',
-            'ruta' => 'Ruta',
-            'fechasis' => 'Fechasis',
-            'tercero_idtercero' => 'Tercero Idtercero',
-            'tipodoc_idtipodoc' => 'Tipodoc Idtipodoc',
-            'usuario_idusuario' => 'Usuario Idusuario',
+            'ruta' => 'Archivo',
+            'fechasis' => 'Fecha',
+            'tercero_idtercero' => 'Tercero',
+            'tipodoc_idtipodoc' => 'Tipo',
+            'usuario_idusuario' => 'Usuario',
         ];
     }
 

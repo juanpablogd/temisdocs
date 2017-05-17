@@ -13,13 +13,16 @@ use app\models\Documento;
 class DocumentoSearch extends Documento
 {
     /**
-     * @inheritdoc
+     * @inheritdoc  http://www.yiiframework.com/wiki/851/yii2-gridview-sorting-and-searching-with-a-junction-table-column-many-to-many-relationship/
      */
+    public $nombres;
+    public $apellido;
+
     public function rules()
     {
         return [
-            [['iddocumento', 'tercero_idtercero', 'tipodoc_idtipodoc', 'usuario_idusuario'], 'integer'],
-            [['ruta', 'fechasis'], 'safe'],
+            [['iddocumento', 'usuario_idusuario'], 'integer'],
+            [['ruta', 'fechasis', 'tipodoc_idtipodoc', 'tercero_idtercero','nombres','apellido'], 'safe'],
         ];
     }
 
@@ -40,13 +43,14 @@ class DocumentoSearch extends Documento
      * @return ActiveDataProvider
      */
     public function search($params)
-    {
+    {   //print_r($params);
         $query = Documento::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['ruta', 'fechasis', 'tercero_idtercero', 'nombres', 'apellido', 'tipodoc_idtipodoc']]
         ]);
 
         $this->load($params);
@@ -57,16 +61,22 @@ class DocumentoSearch extends Documento
             return $dataProvider;
         }
 
+        $query->joinWith('tipodocIdtipodoc');
+        $query->joinWith('terceroIdtercero');
+
         // grid filtering conditions
         $query->andFilterWhere([
-            'iddocumento' => $this->iddocumento,
-            'tercero_idtercero' => $this->tercero_idtercero,
-            'tipodoc_idtipodoc' => $this->tipodoc_idtipodoc,
-            'usuario_idusuario' => $this->usuario_idusuario,
+            //'iddocumento' => $this->iddocumento,
+            //'tipodoc_idtipodoc' => $this->tipodoc_idtipodoc,
+            //'usuario_idusuario' => $this->usuario_idusuario,
         ]);
 
         $query->andFilterWhere(['like', 'ruta', $this->ruta])
-            ->andFilterWhere(['like', 'fechasis', $this->fechasis]);
+            ->andFilterWhere(['like', 'fechasis', $this->fechasis])
+            ->andFilterWhere(['like', 'tercero_idtercero', $this->tercero_idtercero])
+            ->andFilterWhere(['like', 'tercero.nombres', $this->nombres])
+            ->andFilterWhere(['like', 'tercero.apellido', $this->apellido])
+            ->andFilterWhere(['like', 'tipodoc.nombre', $this->tipodoc_idtipodoc]);
 
         return $dataProvider;
     }
