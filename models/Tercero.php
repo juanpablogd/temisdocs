@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "tercero".
  *
  * @property string $idtercero
- * @property string $nombre
+ * @property string $nombres
  * @property string $apellido
  * @property string $telefono
  * @property string $direccion
@@ -33,9 +33,9 @@ class Tercero extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idtercero', 'nombre', 'apellido', 'idciudad'], 'required'],
+            [['idtercero', 'nombres', 'apellido', 'idciudad'], 'required'],
             [['idtercero'], 'string', 'max' => 12],
-            [['nombre', 'apellido'], 'string', 'max' => 50],
+            [['nombres', 'apellido'], 'string', 'max' => 50],
             [['telefono'], 'string', 'max' => 60],
             [['direccion'], 'string', 'max' => 100],
             [['idciudad'], 'string', 'max' => 5],
@@ -51,8 +51,8 @@ class Tercero extends \yii\db\ActiveRecord
     {
         return [
             'idtercero' => 'CC / TI / NIT',
-            'nombre' => 'Nombre',
-            'apellido' => 'Apellido',
+            'nombres' => 'Nombres',
+            'apellido' => 'Apellidos',
             'telefono' => 'Telefono',
             'direccion' => 'Direccion',
             'idciudad' => 'Ciudad',

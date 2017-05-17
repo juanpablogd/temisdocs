@@ -25,17 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'idtercero',
-            'nombre',
+            'nombres',
             'apellido',
             'telefono',
             'direccion',
-            
             [
              'attribute' => 'idciudad',
              'value' => 'idciudad0.nombre'
              ],
-            // 'idciudad',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

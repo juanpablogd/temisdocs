@@ -16,7 +16,7 @@ use app\models\Ciudad;
 
     <?= $form->field($model, 'idtercero')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nombres')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'apellido')->textInput(['maxlength' => true]) ?>
 
