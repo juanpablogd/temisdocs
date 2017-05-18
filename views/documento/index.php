@@ -23,8 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'ruta',
-            'fechasis',
             [
                 'label' => 'CC / NIT',
                 'attribute'=>'tercero_idtercero',
@@ -48,6 +46,15 @@ $this->params['breadcrumbs'][] = $this->title;
             [
              'attribute' => 'tipodoc_idtipodoc',
              'value' => 'tipodocIdtipodoc.nombre'
+            ],
+            'fechasis',
+            [
+                   'label'=>'Archivo',
+                   'format' => 'html',
+                   'value'=>function ($data) {
+                     return Html::a('<span class="glyphicon glyphicon-file"></span>', $data->ruta, ['data-pjax' => 0, 'target' => "_blank"]);
+                        //return Html::button('<a target="_blank" href="'.$data->ruta.'" ><span class="glyphicon glyphicon-file"></span></a>'); //$data->ruta
+                    },
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
