@@ -23,6 +23,9 @@ class Documento extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
+    public $file;
+
     public static function tableName()
     {
         return 'documento';
@@ -39,6 +42,7 @@ class Documento extends \yii\db\ActiveRecord
             [['ruta'], 'string', 'max' => 255],
             [['fechasis'], 'string', 'max' => 45],
             [['tercero_idtercero'], 'string', 'max' => 12],
+            [['file'], 'file'],
             [['tercero_idtercero'], 'exist', 'skipOnError' => true, 'targetClass' => Tercero::className(), 'targetAttribute' => ['tercero_idtercero' => 'idtercero']],
             [['tipodoc_idtipodoc'], 'exist', 'skipOnError' => true, 'targetClass' => Tipodoc::className(), 'targetAttribute' => ['tipodoc_idtipodoc' => 'idtipodoc']],
             [['usuario_idusuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['usuario_idusuario' => 'idusuario']],
@@ -57,6 +61,7 @@ class Documento extends \yii\db\ActiveRecord
             'tercero_idtercero' => 'Tercero',
             'tipodoc_idtipodoc' => 'Tipo',
             'usuario_idusuario' => 'Usuario',
+            'file' => 'Archivo',
         ];
     }
 

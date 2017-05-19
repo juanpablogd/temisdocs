@@ -6,7 +6,8 @@ use yii\helpers\ArrayHelper;
 use app\models\Tercero;
 use app\models\Tipodoc;
 use app\models\Usuario;
-use kartik\select2\Select2;
+use kartik\widgets\Select2;
+use kartik\widgets\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Documento */
@@ -15,7 +16,9 @@ use kartik\select2\Select2;
 
 <div class="documento-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options'=>['enctype'=>'multipart/form-data'] // important
+    ]); ?>
 
 <?php    // Normal select with ActiveForm & model
     echo $form->field($model, 'tercero_idtercero')->widget(Select2::classname(), [
@@ -46,7 +49,14 @@ use kartik\select2\Select2;
         )
      ?>
 
-    <?= $form->field($model, 'ruta')->textInput(['maxlength' => true]) ?>
+    <?= // Usage with ActiveForm and model
+        $form->field($model, 'file')->widget(FileInput::classname(), [
+            'options' => ['accept' => 'image/*'],
+        ]);
+
+
+    ?>
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

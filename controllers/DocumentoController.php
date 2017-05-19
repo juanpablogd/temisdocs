@@ -8,7 +8,7 @@ use app\models\DocumentoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
 /**
  * DocumentoController implements the CRUD actions for Documento model.
  */
@@ -66,6 +66,14 @@ class DocumentoController extends Controller
         $model = new Documento();
 
         if ($model->load(Yii::$app->request->post())) {     //print_r($model);
+            //GUARDA ARCHIVO EN EL SERVIDOR
+            $nombreArchivo = $model->tercero_idtercero."_".$model->tipodoc_idtipodoc; //echo " asdfasd: ".$nombreArchivo;
+            $model->file = UploadedFile::getInstance($model,'file');
+            $model->file->saveAs('uploads/'.$nombreArchivo.'.'.$model->file->extension);   //
+            //ALMACENA NOMBRE DE ARCHIVO
+            $model->ruta = 'uploads/'.$nombreArchivo.'.'.$model->file->extension;
+
+            //FECHA Y HORA DEL SISTEMA
             $model->fechasis = date('Y-m-d H:i:s');
             $model->save();
             return $this->redirect(['view', 'id' => $model->iddocumento]);
@@ -103,8 +111,10 @@ class DocumentoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $myDoc = $this->findModel($id);
+        // Try to delete the file. If we can't then throw an Exception
+        @unlink($myDoc->ruta);
+        $myDoc->delete();
         return $this->redirect(['index']);
     }
 
