@@ -6,6 +6,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'language' => 'es',
+    'timeZone' => 'America/Bogota',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [

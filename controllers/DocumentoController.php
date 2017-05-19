@@ -65,7 +65,9 @@ class DocumentoController extends Controller
     {
         $model = new Documento();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {     //print_r($model);
+            $model->fechasis = date('Y-m-d H:i:s');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->iddocumento]);
         } else {
             return $this->render('create', [
