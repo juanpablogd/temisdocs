@@ -30,7 +30,8 @@
         "codeception/specify": "~0.4.3"
     },
     "config": {
-        "process-timeout": 1800
+        "process-timeout": 1800,
+        "secure-http":false
     },
     "scripts": {
         "post-create-project-cmd": [
