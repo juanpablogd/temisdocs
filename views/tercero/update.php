@@ -11,15 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => $model->idtercero, 'url' => ['view'
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
-<?php
-    AppAsset::register($this);
-    //$this->beginPage();
-    $this->registerCssFile('assets/multiselect/bootstrap-multiselect.css');
-    $this->registerJsFile(Yii::getAlias('@web') . '/assets/multiselect/bootstrap-multiselect.js', ['depends' => [yii\web\JqueryAsset::className()]]);
-    $this->registerJsFile(Yii::getAlias('@web') . '/assets/tercero_create.js', ['depends' => [yii\web\JqueryAsset::className()]]);
-
-?>
-
 <div class="tercero-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
