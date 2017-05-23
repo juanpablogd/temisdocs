@@ -22,7 +22,7 @@ use kartik\widgets\FileInput;
 
 <?php    // Normal select with ActiveForm & model
     echo $form->field($model, 'tercero_idtercero')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Tercero::find()->orderBy(['idtercero'=>SORT_ASC])->all(),'idtercero','idtercero'),
+        'data' => ArrayHelper::map(Tercero::find()->orderBy(['idtercero'=>SORT_ASC])->all(),'idtercero','fullTercero'),
         'language' => 'es',
         'options' => ['placeholder' => 'Seleccione un Tercero ...'],
         'pluginOptions' => [
@@ -51,7 +51,17 @@ use kartik\widgets\FileInput;
 
     <?= // Usage with ActiveForm and model
         $form->field($model, 'file')->widget(FileInput::classname(), [
-            'options' => ['accept' => 'image/*'],
+            'options' => ['accept' => '*/*'],
+            'pluginOptions' => [
+                'initialPreview'=>[
+                    $model->ruta
+                ],
+                'initialPreviewAsData'=>true,
+                'initialPreviewConfig'=> [
+                    ['type' => 'pdf']   //type=> "pdf"
+                ],
+                'overwriteInitial'=>true
+            ]
         ]);
 
 
@@ -59,7 +69,7 @@ use kartik\widgets\FileInput;
 
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

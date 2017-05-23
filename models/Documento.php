@@ -37,7 +37,7 @@ class Documento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ruta', 'fechasis', 'tercero_idtercero', 'tipodoc_idtipodoc', 'usuario_idusuario'], 'required'],
+            [['ruta', 'fechasis', 'tercero_idtercero', 'tipodoc_idtipodoc', 'usuario_idusuario', 'file'], 'required'],
             [['tipodoc_idtipodoc', 'usuario_idusuario'], 'integer'],
             [['ruta'], 'string', 'max' => 255],
             [['fechasis'], 'string', 'max' => 45],
@@ -58,7 +58,7 @@ class Documento extends \yii\db\ActiveRecord
             'iddocumento' => 'Iddocumento',
             'ruta' => 'Archivo',
             'fechasis' => 'Fecha',
-            'tercero_idtercero' => 'Tercero',
+            'tercero_idtercero' => 'Tercero - CC / NIT / TI',
             'tipodoc_idtipodoc' => 'Tipo',
             'usuario_idusuario' => 'Usuario',
             'file' => 'Archivo',

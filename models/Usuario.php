@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-
 /**
  * This is the model class for table "usuario".
  *
@@ -13,10 +12,11 @@ use Yii;
  * @property string $contrasena
  * @property string $estado
  * @property string $perfil
+ * @property string $authKey
  *
  * @property Documento[] $documentos
  */
-class Usuario extends \yii\db\ActiveRecord
+class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * @inheritdoc
@@ -36,6 +36,8 @@ class Usuario extends \yii\db\ActiveRecord
             [['estado', 'perfil'], 'string'],
             [['nombre'], 'string', 'max' => 100],
             [['usuario', 'contrasena'], 'string', 'max' => 45],
+            [['authKey'], 'string', 'max' => 50],
+
         ];
     }
 
@@ -51,6 +53,7 @@ class Usuario extends \yii\db\ActiveRecord
             'contrasena' => 'Contrasena',
             'estado' => 'Estado',
             'perfil' => 'Perfil',
+            'authKey' => 'authKey',
         ];
     }
 
@@ -60,5 +63,76 @@ class Usuario extends \yii\db\ActiveRecord
     public function getDocumentos()
     {
         return $this->hasMany(Documento::className(), ['usuario_idusuario' => 'idusuario']);
+    }
+
+    /**
+     * ******************AUTENTICACIÓN*************************
+     */
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentity($id)
+    {
+        //echo '<script type="text/javascript">alert("Data has been submitted to ' . $id . '");</script>';
+        return self::findOne(['idusuario'=>$id]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        foreach (self::$users as $user) {
+            if ($user['accessToken'] === $token) {
+                return new static($user);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUsername($username)
+    {
+        return self::findOne(['Usuario'=>$username]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getId()
+    {
+        return $this->idusuario;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey()
+    {
+        return $this->authKey;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->authKey === $authKey;
+    }
+    /**
+     * Validates password
+     *
+     * @param string $password password to validate
+     * @return bool if password provided is valid for current user
+     */
+    public function validatePassword($password)
+    {
+        return $this->contrasena === $password;
     }
 }

@@ -74,4 +74,10 @@ class Tercero extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Ciudad::className(), ['idciudad' => 'idciudad']);
     }
+
+   public function getFullTercero()
+   {
+      return $this->idtercero . " " . $this->nombres . " " . $this->apellido;
+   }
+
 }

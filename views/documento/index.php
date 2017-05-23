@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         //return Html::button('<a target="_blank" href="'.$data->ruta.'" ><span class="glyphicon glyphicon-file"></span></a>'); //$data->ruta
                     },
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','template' => '{delete}'],
         ],
     ]); ?>
 </div>
