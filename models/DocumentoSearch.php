@@ -63,6 +63,7 @@ class DocumentoSearch extends Documento
 
         $query->joinWith('tipodocIdtipodoc');
         $query->joinWith('terceroIdtercero');
+        //$query->joinWith('usuarioIdusuario');
 
         // grid filtering conditions
         $query->andFilterWhere(['like', 'ruta', $this->ruta])

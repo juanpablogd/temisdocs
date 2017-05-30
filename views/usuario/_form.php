@@ -16,14 +16,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'usuario')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'contrasena')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'contrasena')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'estado')->dropDownList([ 'Activo' => 'Activo', 'Inactivo' => 'Inactivo', ], ['prompt' => '--Seleccione--']) ?>
+    <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'perfil')->dropDownList([ 'ADMIN' => 'ADMIN', 'CARGUE' => 'CARGUE', 'CONSULTA' => 'CONSULTA', ], ['prompt' => '--Seleccione--']) ?>
 
+    <?= $form->field($model, 'estado')->dropDownList([ 'Activo' => 'Activo', 'Inactivo' => 'Inactivo', ], ['prompt' => '--Seleccione--']) ?>
+
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

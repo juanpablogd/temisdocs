@@ -35,13 +35,16 @@ class UsuarioController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UsuarioSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new UsuarioSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);            
+        
     }
 
     /**
@@ -51,6 +54,7 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,6 +67,7 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         $model = new Usuario();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +87,7 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +107,7 @@ class UsuarioController extends Controller
      */
     public function actionDelete($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -118,7 +125,7 @@ class UsuarioController extends Controller
         if (($model = Usuario::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('La pagína dolicitada no existe.');
         }
     }
 }

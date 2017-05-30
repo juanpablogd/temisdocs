@@ -35,6 +35,8 @@ class DocumentoController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN" && Yii::$app->user->identity->perfil != "CARGUE" && Yii::$app->user->identity->perfil != "CONSULTA")  return $this->redirect(\yii\helpers\Url::base());
+
         $searchModel = new DocumentoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,6 +53,8 @@ class DocumentoController extends Controller
      */
     public function actionView($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN" && Yii::$app->user->identity->perfil != "CARGUE" && Yii::$app->user->identity->perfil != "CONSULTA")  return $this->redirect(\yii\helpers\Url::base());
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,18 +67,25 @@ class DocumentoController extends Controller
      */
     public function actionCreate()
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN" && Yii::$app->user->identity->perfil != "CARGUE" && Yii::$app->user->identity->perfil != "CONSULTA")  return $this->redirect(\yii\helpers\Url::base());
+
         $model = new Documento();
 
         if ($model->load(Yii::$app->request->post())) {     //print_r($model);
             //GUARDA ARCHIVO EN EL SERVIDOR
             $nombreArchivo = $model->tercero_idtercero."_".$model->tipodoc_idtipodoc; //echo " asdfasd: ".$nombreArchivo;
+            $directorio = 'uploads/'.$model->tercero_idtercero;
+            @mkdir($directorio, 0777, true);
             $model->file = UploadedFile::getInstance($model,'file');
-            $model->file->saveAs('uploads/'.$nombreArchivo.'.'.$model->file->extension);   //
+            $model->file->saveAs($directorio."/".$nombreArchivo.'.'.$model->file->extension);   //
             //ALMACENA NOMBRE DE ARCHIVO
-            $model->ruta = 'uploads/'.$nombreArchivo.'.'.$model->file->extension;
+            $model->ruta = $directorio."/".$nombreArchivo.'.'.$model->file->extension;
 
             //FECHA Y HORA DEL SISTEMA
             $model->fechasis = date('Y-m-d H:i:s');
+            //USUARIO QUE INGRESA LA INFORMACIÓN
+            $model->usuario_idusuario = Yii::$app->user->identity->id;
+            //GUARDAR
             $model->save();
             return $this->redirect(['view', 'id' => $model->iddocumento]);
         } else {
@@ -92,6 +103,10 @@ class DocumentoController extends Controller
      */
     public function actionUpdate($id)
     {
+        return $this->redirect(['view', 'id' => $id]);
+
+        if(Yii::$app->user->identity->perfil != "ADMIN" && Yii::$app->user->identity->perfil != "CARGUE" && Yii::$app->user->identity->perfil != "CONSULTA")  return $this->redirect(\yii\helpers\Url::base());
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -111,6 +126,8 @@ class DocumentoController extends Controller
      */
     public function actionDelete($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN" && Yii::$app->user->identity->perfil != "CARGUE" && Yii::$app->user->identity->perfil != "CONSULTA")  return $this->redirect(\yii\helpers\Url::base());
+        
         $myDoc = $this->findModel($id);
         // Try to delete the file. If we can't then throw an Exception
         @unlink($myDoc->ruta);

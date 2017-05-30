@@ -35,6 +35,7 @@ class TipodocController extends Controller
      */
     public function actionIndex()
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         $searchModel = new TipodocSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,6 +52,7 @@ class TipodocController extends Controller
      */
     public function actionView($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,6 +65,7 @@ class TipodocController extends Controller
      */
     public function actionCreate()
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         $model = new Tipodoc();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +85,7 @@ class TipodocController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,6 +105,7 @@ class TipodocController extends Controller
      */
     public function actionDelete($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -115,6 +120,7 @@ class TipodocController extends Controller
      */
     protected function findModel($id)
     {
+        if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
         if (($model = Tipodoc::findOne($id)) !== null) {
             return $model;
         } else {

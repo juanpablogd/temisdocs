@@ -18,6 +18,7 @@ use Yii;
  */
 class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    public $password_repeat;
     /**
      * @inheritdoc
      */
@@ -32,11 +33,12 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'usuario', 'contrasena', 'estado', 'perfil'], 'required'],
+            [['nombre', 'usuario', 'contrasena','password_repeat', 'estado', 'perfil'], 'required'],
             [['estado', 'perfil'], 'string'],
             [['nombre'], 'string', 'max' => 100],
             [['usuario', 'contrasena'], 'string', 'max' => 45],
             [['authKey'], 'string', 'max' => 50],
+            ['password_repeat', 'compare', 'compareAttribute'=>'contrasena', 'message'=>"Contraseña diferente" ]
 
         ];
     }
@@ -51,6 +53,7 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'nombre' => 'Nombre',
             'usuario' => 'Usuario',
             'contrasena' => 'Contrasena',
+            'password_repeat' => 'Repetir Contrasena',
             'estado' => 'Estado',
             'perfil' => 'Perfil',
             'authKey' => 'authKey',
@@ -134,5 +137,13 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->contrasena === $password;
+    }
+    /**
+     * @inheritdoc
+     */
+    public static function findPerfil($id)
+    {
+        //echo '<script type="text/javascript">alert("Data has been submitted to ' . $id . '");</script>';
+        return self::findOne(['idusuario'=>$id])->select('perfil');;
     }
 }

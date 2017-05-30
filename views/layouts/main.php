@@ -33,19 +33,23 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Yii::$app->user->identity->idusuario;
+    //echo Yii::$app->user->identity->idusuario;
+    //echo '<script type="text/javascript">alert("R: ' . Yii::$app->user->identity->perfil . '");</script>';
     $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+                ['label' => 'Inicio', 'url' => ['/site/index']],
             ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else{
-        $menuItems[] = ['label' => 'Usuarios', 'url' => ['/usuario/index']];
-        $menuItems[] = ['label' => 'Ciudades', 'url' => ['/ciudad/index']];
-        $menuItems[] = ['label' => 'Tipo Doc.', 'url' => ['/tipodoc/index']];
-        $menuItems[] = ['label' => 'Terceros', 'url' => ['/tercero/index']];
+        if(Yii::$app->user->identity->perfil == "ADMIN"){
+            $menuItems[] = ['label' => 'Usuarios', 'url' => ['/usuario/index']];
+            $menuItems[] = ['label' => 'Ciudades', 'url' => ['/ciudad/index']];
+            $menuItems[] = ['label' => 'Tipo Doc.', 'url' => ['/tipodoc/index']];
+        }
+        if(Yii::$app->user->identity->perfil == "ADMIN" || Yii::$app->user->identity->perfil == "CARGUE"){
+            $menuItems[] = ['label' => 'Terceros', 'url' => ['/tercero/index']];
+        }
+
         $menuItems[] = ['label' => 'Documentos', 'url' => ['/documento/index']];
         $menuItems[] = [
                     'label' => 'Logout (' . Yii::$app->user->identity->usuario . ')',

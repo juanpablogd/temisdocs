@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\assets\AppAsset;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DocumentoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,8 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Crear Documento', ['create'], ['class' => 'btn btn-success']) ?>
+<?php
+    if(Yii::$app->user->identity->perfil == "ADMIN" || Yii::$app->user->identity->perfil == "CARGUE"){
+        $menuItems = ['class' => 'yii\grid\ActionColumn','template' => '{view} {delete} '];
+        echo Html::a('Crear Documento', ['create'], ['class' => 'btn btn-success']);
+    }else{
+        $menuItems = ['class' => 'yii\grid\ActionColumn','template' => '{view}'];
+    } 
+?>
     </p>
+
+    <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -56,7 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         //return Html::button('<a target="_blank" href="'.$data->ruta.'" ><span class="glyphicon glyphicon-file"></span></a>'); //$data->ruta
                     },
             ],
-            ['class' => 'yii\grid\ActionColumn','template' => '{delete}'],
+            $menuItems,
         ],
     ]); ?>
+    <?php Pjax::begin(); ?>
 </div>

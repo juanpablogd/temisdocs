@@ -40,14 +40,6 @@ use kartik\widgets\FileInput;
                 ['prompt' => '---Seleccione---']
         )
      ?>
-    <?= $form->field($model, 'usuario_idusuario')->dropDownList(
-            ArrayHelper::map(
-                Usuario::find()->orderBy(['nombre'=>SORT_ASC])->all(),
-                'idusuario',
-                'nombre'),
-                ['prompt' => '---Seleccione---']
-        )
-     ?>
 
     <?= // Usage with ActiveForm and model
         $form->field($model, 'file')->widget(FileInput::classname(), [
