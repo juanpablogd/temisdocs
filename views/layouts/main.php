@@ -78,7 +78,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; Sofytek <?= date('Y') ?></p>
 
-        <p class="pull-right"><?php echo '<p class="pull-right">Desarrollado por <a href="http://www.sofytek.com.co/" rel="external">Sofytek SAS</a></p>'?></p>
+        <p class="pull-right"><?php echo '<p class="pull-right"><a href="http://www.sofytek.com.co/" rel="external">Visitanos</a></p>'?></p>
     </div>
 </footer>
 

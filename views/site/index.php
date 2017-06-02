@@ -11,8 +11,6 @@ $this->title = 'Temis Docs';
 
         <p class="lead">Aplicación para la gestión de documentos.</p>
         <p><img src="../views/site/fotodocumentos.jpg"></p>
-
-        <p><a class="btn-xs btn-success" href="http://www.sofytek.com.co/" target="_blank">Visitanos</a></p>
     </div>
 
     <div class="body-content">
