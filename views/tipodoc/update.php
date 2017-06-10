@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tipodoc */
 
-$this->title = 'Update Tipodoc: ' . $model->idtipodoc;
+$this->title = 'Actualizar Tipodoc: ' . $model->idtipodoc;
 $this->params['breadcrumbs'][] = ['label' => 'Tipodocs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->idtipodoc, 'url' => ['view', 'id' => $model->idtipodoc]];
 $this->params['breadcrumbs'][] = 'Update';
