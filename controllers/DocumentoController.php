@@ -73,7 +73,7 @@ class DocumentoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {     //print_r($model);
             //GUARDA ARCHIVO EN EL SERVIDOR
-            $nombreArchivo = $model->tercero_idtercero."_".$model->tipodoc_idtipodoc; //echo " asdfasd: ".$nombreArchivo;
+            $nombreArchivo = date('Y-m-d_H-i-s')."_".$model->tercero_idtercero."_".$model->tipodoc_idtipodoc; //echo " asdfasd: ".$nombreArchivo;
             $directorio = 'uploads/'.$model->tercero_idtercero;
             @mkdir($directorio, 0777, true);
             $model->file = UploadedFile::getInstance($model,'file');
