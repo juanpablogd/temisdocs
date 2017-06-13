@@ -22,7 +22,7 @@ class DocumentoSearch extends Documento
     {
         return [
             [['iddocumento', 'usuario_idusuario'], 'integer'],
-            [['ruta', 'fechasis', 'tipodoc_idtipodoc', 'tercero_idtercero','nombres','apellido'], 'safe'],
+            [['ruta', 'fechasis', 'tipodoc_idtipodoc', 'tercero_idtercero','nombres','apellido','referencia'], 'safe'],
         ];
     }
 
@@ -50,7 +50,7 @@ class DocumentoSearch extends Documento
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['attributes' => ['ruta', 'fechasis', 'tercero_idtercero', 'nombres', 'apellido', 'tipodoc_idtipodoc']]
+            'sort' => ['attributes' => ['ruta', 'fechasis', 'tercero_idtercero', 'nombres', 'apellido', 'tipodoc_idtipodoc','referencia']]
         ]);
 
         $this->load($params);
@@ -68,6 +68,7 @@ class DocumentoSearch extends Documento
         // grid filtering conditions
         $query->andFilterWhere(['like', 'ruta', $this->ruta])
             ->andFilterWhere(['like', 'fechasis', $this->fechasis])
+            ->andFilterWhere(['like', 'referencia', $this->referencia])
             ->andFilterWhere(['like', 'tercero_idtercero', $this->tercero_idtercero])
             ->andFilterWhere(['like', 'tercero.nombres', $this->nombres])
             ->andFilterWhere(['like', 'tercero.apellido', $this->apellido])

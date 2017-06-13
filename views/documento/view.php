@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->tipodocIdtipodoc['nombre'];
                 },
             ],
+            'referencia',
             'usuarioIdusuario.usuario',
         ],
     ]) ?>

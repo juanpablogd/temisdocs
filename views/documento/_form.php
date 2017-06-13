@@ -41,6 +41,8 @@ use kartik\widgets\FileInput;
         )
      ?>
 
+    <?= $form->field($model, 'referencia')->textInput(['maxlength' => true]) ?>
+    
     <?= // Usage with ActiveForm and model
         $form->field($model, 'file')->widget(FileInput::classname(), [
             'options' => ['accept' => '*/*'],

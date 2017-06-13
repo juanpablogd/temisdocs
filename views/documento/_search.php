@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tipodoc_idtipodoc') ?>
 
-    <?php // echo $form->field($model, 'usuario_idusuario') ?>
+    <?php  echo $form->field($model, 'referencia') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

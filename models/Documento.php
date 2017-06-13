@@ -41,6 +41,7 @@ class Documento extends \yii\db\ActiveRecord
             [['tipodoc_idtipodoc', 'usuario_idusuario'], 'integer'],
             [['ruta'], 'string', 'max' => 255],
             [['fechasis'], 'string', 'max' => 45],
+            [['referencia'], 'string', 'max' => 50],
             [['tercero_idtercero'], 'string', 'max' => 12],
             [['file'], 'file'],
             [['tercero_idtercero'], 'exist', 'skipOnError' => true, 'targetClass' => Tercero::className(), 'targetAttribute' => ['tercero_idtercero' => 'idtercero']],
@@ -60,6 +61,7 @@ class Documento extends \yii\db\ActiveRecord
             'fechasis' => 'Fecha',
             'tercero_idtercero' => 'Tercero - CC / NIT / TI',
             'tipodoc_idtipodoc' => 'Tipo',
+            'referencia' => 'Referencia',
             'usuario_idusuario' => 'Usuario',
             'file' => 'Archivo',
         ];

@@ -58,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
              'attribute' => 'tipodoc_idtipodoc',
              'value' => 'tipodocIdtipodoc.nombre'
             ],
+            'referencia',
             'fechasis',
             [
                    'label'=>'Archivo',
