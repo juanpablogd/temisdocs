@@ -106,9 +106,14 @@ class TipodocController extends Controller
     public function actionDelete($id)
     {
         if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        try {
+            if($this->findModel($id)->delete()){
+               return $this->redirect(['index']);
+            }
+         } catch (\Exception $e) {
+            $msj = "Falló al eliminar el dato porque tiene documentos relacionados: ".$id;
+            throw new \yii\web\HttpException(500,$msj, 405);
+         }
     }
 
     /**
