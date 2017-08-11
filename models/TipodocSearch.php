@@ -47,6 +47,7 @@ class TipodocSearch extends Tipodoc
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['nombre' => SORT_ASC]]
         ]);
 
         $this->load($params);

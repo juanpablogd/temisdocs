@@ -106,6 +106,10 @@ class TipodocController extends Controller
     public function actionDelete($id)
     {
         if(Yii::$app->user->identity->perfil != "ADMIN") return $this->redirect(\yii\helpers\Url::base());
+        if($id==18){
+            $msj = "Este dato es de vital importancia y no se puede eliminar: ".$id;
+            throw new \yii\web\HttpException(500,$msj, 405);
+        }
         try {
             if($this->findModel($id)->delete()){
                return $this->redirect(['index']);
